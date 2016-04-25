@@ -13,7 +13,17 @@ function renderStatic(app){
 		this.sendFile(path.resolve(__base, `dist/${__filename}`));
 	}
 
-	function renderIndex(t){
+	function renderIndex(initialState){
+		var assetsPath = app.config.assets.standalone
+			? `http://${app.config.assets.host}:${app.config.assets.port}${app.config.assets.path}`
+			: app.config.assets.path;
+
+		var t = {
+			initialState: JSON.stringify(initialState)
+			, html: ''
+			, assetsPath: assetsPath
+		}
+
 		this.send(compiled(t));
 	}
 

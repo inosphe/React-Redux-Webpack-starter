@@ -23,7 +23,7 @@ module.exports = function(opt){
 	opt.rootdir = opt.rootdir || __dirname;
 	_.extend(app, opt);
 
-	app.config = getConfig('config.json');
+	app.config = getConfig('config');
 
 	app.init = function(modules){
 		return promiseMapSeries(modules, function(moduleName){
@@ -48,7 +48,11 @@ module.exports = function(opt){
 	app.start = function(){
 		var port = app.config.port || 3000;
 
-		return this.init(['init/webpack', 'init/express', 'init/renderStatic', 'routers'])
+		var init_list = ['init/express', 'init/renderStatic', 'routers'];
+		if(!app.config.assets.standalone)
+			init_list.unshift('init/webpack');
+
+		return this.init(init_list)
 		.then(function(){
 			app.listen(port);
 			_.each(app.tests, func=>func());
