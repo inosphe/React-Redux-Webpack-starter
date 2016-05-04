@@ -5,11 +5,19 @@
   "main": "index.js",
   "dependencies": {
     "app-module-path": "^1.0.5",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.9.2",
     "colors": "^1.1.2",
+    "connect-mongo": "^1.1.0",
+    "es6-promise": "^3.1.2",
     "express": "^4.10.2",
+    "express-session": "^1.13.0",
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.11.1",
+    "mongoose": "^4.4.14",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "promise-map-series": "^0.2.2",
     "q": "^1.4.1",
     "react": "^0.14.2",
@@ -23,8 +31,8 @@
     "winston-daily-rotate-file": "^1.0.1"
   },
   "scripts": {
-    "webpack": "node ./webpack.dev.js"
-    , "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack": "node ./webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -54,11 +62,13 @@
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
     "node-sass": "^3.5.3",
     "redux-devtools": "^2.1.5",
     "rimraf": "^2.4.3",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-dev-server": "^1.14.1",

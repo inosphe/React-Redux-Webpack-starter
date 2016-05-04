@@ -5,6 +5,11 @@ var _ = require('lodash');
 var promiseMapSeries = require('promise-map-series');
 var colors = require('colors/safe');
 
+Object.defineProperty(global, '_', {
+	value: require('lodash')
+	, configurable: false
+})
+
 Object.defineProperty(global, 'logger', {
 	value: require('./init/logger')('debug')
 	, configurable: false
@@ -27,6 +32,7 @@ module.exports = function(opt){
 
 	app.init = function(modules){
 		return promiseMapSeries(modules, function(moduleName){
+			logger.info(colors.yellow(moduleName));
 			try{
 				var mod = require(`./${moduleName}`);
 				if(typeof mod == 'function'){
@@ -48,7 +54,15 @@ module.exports = function(opt){
 	app.start = function(){
 		var port = app.config.port || 3000;
 
-		var init_list = ['init/express', 'init/renderStatic', 'routers'];
+		var init_list = [
+			'init/database'
+			, 'init/express'
+			, 'init/renderStatic'
+			, 'routers'
+			, 'init/authorize/passport'
+		
+		];
+
 		if(!app.config.assets.standalone)
 			init_list.unshift('init/webpack');
 

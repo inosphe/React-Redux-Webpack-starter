@@ -6,6 +6,8 @@ global.getConfig = function(name){
 }
 
 require('app-module-path').addPath(`${__src}/server`);
+require('app-module-path').addPath(`${__src}/server/util`);
+require('app-module-path').addPath(`${__src}/`);
 
 var app = require('./src/server')({
 	rootdir: __dirname

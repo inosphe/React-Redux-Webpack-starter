@@ -1,8 +1,15 @@
+'use strict'
+
 import _ from 'lodash'
+import es6promise from 'es6-promise';
+import Immutable from 'immutable';
 
 export class ActionGroup{
-	constructor(){
+	constructor(defaultState){
+		this.defaultState = defaultState || {};
 		this.handlers = {};
+
+		this._declare('__INIT__', (state, action)=>Immutable.fromJS(state));
 	}
 
 	_declare(action, callback){
@@ -10,13 +17,16 @@ export class ActionGroup{
 	}
 
 	declare(){
-		return this._declare.bind(this);
+		var decl = this._declare.bind(this);
+		decl.merge = function(action, callback){
+			decl(action, (state, action)=>state.merge(callback(state, action)));
+		}
+		return decl;
 	}
 
-	getReducer(defaultState){
+	getReducer(){
 		var self = this;
-		return (state=defaultState, action)=>{
-			console.log(state, action);
+		return (state = this.defaultState, action)=>{
 			let reducer = this.handlers[action.type];
 			if(reducer){
 				return reducer(state, action);

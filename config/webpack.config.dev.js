@@ -28,7 +28,7 @@ module.exports = function(opt){
 		],
 		resolve: {
 			extensions: ['', '.js', '.jsx'],
-			modulesDirectories: ['node_modules', 'src/frontend']
+			modulesDirectories: ['node_modules', 'src/frontend', 'src/common']
 		},
 		output: {
 			path: path.join(__base, opt.path),

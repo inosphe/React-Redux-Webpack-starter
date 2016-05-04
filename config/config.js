@@ -6,4 +6,10 @@ module.exports = {
 		, path: '/dist'
 		, standalone: true
 	}
+	, database: [{
+		type: 'mongodb'
+		, alias: ['default','db0', 'session']
+		, model: ['account', 'card']
+		, address: 'localhost'
+	}]
 }
