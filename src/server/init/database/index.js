@@ -22,7 +22,7 @@ module.exports = function(app){
 				return Q(require(`models/${_model}`)(connection))
 				.then(()=>{
 					console.log(_model, db.type);
-					var ormObj = orm(connection, _model, db.type);
+					var ormObj = orm(app, connection, _model, db.type);
 					_.each(_.flatten([db.alias]), _alias=>{
 						self[_alias][_model] = ormObj;
 					});

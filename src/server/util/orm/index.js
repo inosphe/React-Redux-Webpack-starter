@@ -1,14 +1,15 @@
-function orm(connection, collectionName, driverName){
+function orm(app, connection, collectionName, driverName){
 	var driver;
 
 	try{
 		driver = getDriver(driverName);
 
-		return new driver(connection, collectionName);
+		return new driver(app, connection, collectionName);
 	}
 	catch(e){
-		logger.error('invalid orm driver name');
+		logger.error('invalid orm driver');
 		logger.info({collectionName, driverName})
+		logger.info(e);
 
 		return null;
 	}
