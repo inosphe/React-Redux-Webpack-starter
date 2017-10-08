@@ -4,15 +4,20 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var __base = global.__base || __dirname;
 
+var process = require('process');
+console.log(process.env.NODE_ENV)
+
 module.exports = {
 	// or devtool: 'eval' to debug issues with compiled output:
 	devtool: 'source-map',
 	entry: [
+    	'babel-polyfill',
+		'eventsource-polyfill',
 		'./src/frontend/core/index.jsx'
 	],
 	resolve: {
-		extensions: ['', '.js', '.jsx'],
-		modulesDirectories: ['node_modules', 'src/frontend']
+		extensions: ['.js', '.jsx'],
+		modules: ['node_modules', 'src/frontend', 'src/common']
 	},
 	output: {
 		path: path.join(__base, 'dist'),
@@ -22,35 +27,51 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.optimize.OccurrenceOrderPlugin()
-	    , new webpack.DefinePlugin({
-	    	'process.env': {
-	    		'NODE_ENV': JSON.stringify('production')
-	    		, 'BABEL_ENV': JSON.stringify('production')
-	    	}
-	    })
-	    , new webpack.optimize.UglifyJsPlugin({
-	    	compressor: {
-	    		warnings: false
-	    	}
-	    })
-	    ,new ExtractTextPlugin("css/styles.css")
+		, new webpack.optimize.UglifyJsPlugin({
+			sourceMap: true
+			, compress: {
+				warnings: false
+			}
+		})
+		, new ExtractTextPlugin({
+			filename: "css/styles.css"
+			, disable: false
+			, allChunks: true
+		})
 	],
 	module: {
-		loaders: [{
+		rules: [{
 			test: /\.jsx?$/,
-			// loaders: ['babel'],
-			loader: 'babel',
-			query: {
-				"presets": ["react", "stage-0", "es2015"],
-				"plugins": ["transform-decorators-legacy"],
-				"env": {
-					
-				}
-			},
-			// include: path.join(__base, 'src'),
-			exclude: /node_modules/
+			exclude: /(node_modules|bower_components)/,
+			use: {
+				loader: "babel-loader?cacheDirectory=true"
+			}
+		}, {
+			test: /\.(png|jpg|gif|jpeg)$/
+			, use: {
+				loader: 'url-loader?limit=8192'
+			}
 		}
-		, { test: /\.(png|jpg|gif|jpeg)$/, loader: 'url-loader?limit=8192'},
-		, { test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css!sass') }
+		, {
+			test: /\.css$/
+			, use: {
+				loader: 'style!css'
+			}
+		}
+		, {
+			test: /\.scss$/
+			, exclude: /(node_modules|bower_components)/
+			, use: ExtractTextPlugin.extract({
+				fallback: "style-loader"
+				, use: [{
+	                loader: "css-loader" // translates CSS into CommonJS
+	            }, {
+	                loader: "sass-loader" // compiles Sass to CSS
+	            }]
+			})
+		}
 	]}
 };
+
+
+console.log(module.exports)

@@ -2,9 +2,9 @@
 
 import { type } from './account.decl';
 import _ from 'lodash'
-import { get, post } from 'util/request';
+import { get, post } from 'utils/request';
 import { validateSignup, validateSignin } from 'validateAccount';
-import { pushState } from 'redux-router';
+import { push } from 'react-router-redux'
 
 export function signup(data){
 	try{
@@ -22,7 +22,7 @@ export function signup(data){
 			return res;
 		})
 		.then(res=>dispatch({type: type.LOGIN_SUCCESS, user: res.user}))
-		.then(()=>dispatch(pushState(null, '/')))
+		.then(()=>dispatch(push('/')))
 		.fail(res=>{
 			console.log('failure', res, res.message, res.stack);
 			dispatch({type: type.SIGNUP_FAILURE, message: res.message})
@@ -43,7 +43,7 @@ export function signin(data){
 	return function(dispatch, getState){
 		post('/v1/account/signin', data)
 		.then(res=>dispatch({type: type.LOGIN_SUCCESS, user: res.user}))
-		.then(()=>dispatch(pushState(null, '/')))
+		.then(()=>dispatch(push('/')))
 		.fail(res=>{
 			console.log('failure', res, res.message, res.stack);
 			dispatch({type: type.LOGIN_FAILURE, message: res.message})

@@ -1,7 +1,6 @@
 'use strict'
 
 import _ from 'lodash'
-import es6promise from 'es6-promise';
 import Immutable from 'immutable';
 
 export class ActionGroup{

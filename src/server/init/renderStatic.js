@@ -4,7 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var _ = require('lodash');
 
-
 function renderStatic(app){
 	var indexFilePath = path.resolve(__src, app.config.index);
 	var compiled = _.template(fs.readFileSync(indexFilePath));
@@ -14,8 +13,8 @@ function renderStatic(app){
 	}
 
 	function renderIndex(initialState){
-		var assetsPath = app.config.assets.standalone
-			? `http://${app.config.assets.host}:${app.config.assets.port}${app.config.assets.path}`
+		var assetsPath = app.config.assets.server
+			? `http://${app.config.assets.server.host}:${app.config.assets.server.port}${app.config.assets.path}`
 			: app.config.assets.path;
 
 		var t = {

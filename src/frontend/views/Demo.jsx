@@ -27,7 +27,7 @@ class Demo extends React.Component {
 				<div>{stylesheet.className}</div>
 				<button onClick={this.onClick.bind(this)}>Click</button>
 				<button onClick={this.onClick2.bind(this)}>Click-server</button>
-				{this.props.global.config.demo_text}
+				{this.props.global.config.get('demo_text')}
 			</div>)
 	}
 }

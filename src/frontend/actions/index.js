@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { routerStateReducer } from 'redux-router';
 import { reducer as config } from './config.decl'
 import { reducer as account } from './account.decl'
 
+import { routerReducer } from 'react-router-redux'
+
 const rootReducer = combineReducers({
-	router: routerStateReducer
+	router: routerReducer
 	, global: combineReducers({
 		config: config
 	})

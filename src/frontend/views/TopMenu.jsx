@@ -9,11 +9,10 @@ class TopMenu extends React.Component {
         this.displayName = 'TopMenu';
     }
 	route(url){
-		this.props.pushState({}, url);
+		this.props.push(url);
 	}
     render() {
     	var onLogin;
-        console.log(this.props.account.toJS());
     	if(!this.props.account.get('loggedIn')){
             onLogin = <group>
                 <button onClick={this.route.bind(this, 'signup')}>signup</button>

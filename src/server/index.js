@@ -63,9 +63,6 @@ module.exports = function(opt){
 		
 		];
 
-		if(!app.config.assets.standalone)
-			init_list.unshift('init/webpack');
-
 		return this.init(init_list)
 		.then(function(){
 			app.listen(port);

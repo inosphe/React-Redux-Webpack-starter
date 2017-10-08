@@ -1,8 +1,6 @@
 #!/bin/bash
 
 TMUX="tmux"
-MONGODB_SRC="/Users/inosphe/Documents/development/mongodb-osx-x86_64-3.2.1/bin"
-MONGODB_DATA_SRC="./data/mongo/"
 
 $TMUX new \; \
   split-window -h \; \
@@ -17,7 +15,7 @@ $TMUX new \; \
   select-pane -t 2 \; \
     send-keys "git status" Enter \; \
   select-pane -t 3 \; \
-    send-keys "$MONGODB_SRC/mongod --dbpath $MONGODB_DATA_SRC " Enter \; \
+    send-keys "./run_mongo.sh" Enter \; \
   select-pane -t 4 \; \
     send-keys "npm run webpack" Enter \; \
     

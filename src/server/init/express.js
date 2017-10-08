@@ -1,10 +1,10 @@
+var process			= require('process')
 var express 		= require('express');
 var bodyParser		= require('body-parser')
 var path			= require('path');
 var session 		= require('express-session');
 var passport 		= require('passport');
 var connect_mongo	= require('connect-mongo')(session);
-
 
 module.exports = function(app){
 	app.use(bodyParser.urlencoded({ extended: true }))
@@ -26,6 +26,12 @@ module.exports = function(app){
 			, collection: 'sessions'
 		})
 	}))
+
+	if(process.env.NODE_ENV == 'development'){
+		var cors = require("cors");
+		app.use(cors());
+	}
+
 
 	app.use(passport.initialize());
 	app.use(passport.session());
