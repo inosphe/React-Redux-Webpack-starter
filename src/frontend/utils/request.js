@@ -2,13 +2,25 @@ import fetch from 'isomorphic-fetch';
 import Q from 'q';
 
 var credentials = 'include';
-export function get(url){
+export function get(url, body){
+	if(body){
+		var querystring = _.map(body, (v,k)=>`${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
+		url = url + '?' + querystring;
+	}
 	return Q(fetch(url, {credentials})).then(handle);
 }
 
 export function put(url, body){
 	const method = 'put';
-	return Q(fetch(url, {method, body, credentials})).then(handle);
+	return Q(fetch(url, {
+		method
+		, headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+		, body: JSON.stringify(body)
+		, credentials
+	})).then(handle);
 }
 
 export function post(url, body){
@@ -21,6 +33,14 @@ export function post(url, body){
 			'Content-Type': 'application/json'
 		}
 		, body: JSON.stringify(body)
+		, credentials
+	})).then(handle);
+}
+
+export function __delete(url, body){
+	const method = 'delete';
+	return Q(fetch(url, {
+		method
 		, credentials
 	})).then(handle);
 }
