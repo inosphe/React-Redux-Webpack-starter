@@ -8,7 +8,8 @@ module.exports = function(app){
 
 	router.get('/', function(req, res){
 		var url = req.param('url');
-		orm_webpage.get(req.user, url)
+
+		orm_webpage.find(req.user)
 		.then(ret=>res.send(ret))
 		.fail(fallback(res))
 	})

@@ -1,5 +1,7 @@
 var Q = require('q');
 var makeObject = require('common/utils/makeObject');
+var fs = require('fs');
+var path = require('path');
 
 function driver(app, model){
 	this.app = app;
@@ -14,6 +16,7 @@ function driver(app, model){
 
 driver.prototype = {
 	create: function(doc){
+		console.log('create', doc)
 		return this._create(doc);
 	}
 	, _find: function(doc, proj, option){
@@ -153,13 +156,14 @@ module.exports = function(app, connection, collectionName){
 	logger.debug('initializing orm', collectionName);
 
 	try{
-		constructor = require(`./_${collectionName}`);
+		let modulePath = path.resolve(__dirname, `./_${collectionName}.js`);
+		if(fs.existsSync(modulePath)){
+			constructor = require(`./_${collectionName}`);
+		}
 	}
 	catch(e){
-		if(e.code != 'MODULE_NOT_FOUND'){
-			logger.error(e);
-			logger.info(e.stack);
-		}
+		logger.error(e);
+		logger.info(e.stack);
 	}	
 
 	if(constructor){

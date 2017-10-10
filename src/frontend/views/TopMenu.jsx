@@ -23,8 +23,9 @@ class TopMenu extends React.Component {
             onLogin = <button onClick={this.props.logout}>logout</button>;
     	}
         return <div>
-        	<button onClick={this.route.bind(this, 'main')}>main</button>
-			<button onClick={this.route.bind(this, 'demo')}>demo</button>
+        	<button onClick={this.route.bind(this, '/main')}>main</button>
+            <button onClick={this.route.bind(this, '/demo')}>demo</button>
+			<button onClick={this.route.bind(this, '/note')}>note</button>
 			{onLogin}
         </div>;
     }

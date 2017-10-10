@@ -5,7 +5,7 @@ module.exports = {
 	, database: [{
 		type: 'mongodb'
 		, alias: ['default','db0', 'session']
-		, model: ['account']
+		, model: ['account', 'webpage', 'note']
 		, address: 'localhost'
 	}]
 	, assets: process.env.NODE_ENV=='development'?

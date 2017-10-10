@@ -1,7 +1,14 @@
 'use strict'
 
+let express = require('express');
+let routerUtil = require('util/routerUtil');
+
 module.exports = function(app){
-	app.get('/:a?', function(req, res){
+	app.use('/v1', require('api')(app));
+
+	let router = routerUtil.initRouter(__dirname, app);
+	
+	router.get('*', function(req, res){
 		let state = {
 			global: {config: {demo_text: 'Hello World!'}}
 			, account: {
@@ -12,5 +19,5 @@ module.exports = function(app){
 		res.renderIndex(state);
 	});
 
-	app.use('/v1', require('api')(app));
+	app.use(router);
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import TopMenu from './TopMenu';
 import Main from './Main';
 import Demo from './Demo';
+import NoteListView from './noteListView';
+import NoteView from './noteView';
 import SignupPage from '../views/signupPage';
 import SigninPage from '../views/signinPage';
 
@@ -36,6 +38,8 @@ class App extends React.Component {
 			<Switch>
 				<Route path="/main" component={Main} />
 				<Route path="/demo" component={Demo} />
+				<Route exact path="/note" component={NoteListView} />
+				<Route path="/note/:_id" component={NoteView} />
 				<Route path="/signup" component={SignupPage} />
 				<Route path="/signin" component={SigninPage} />
 				<Route component={Main} />

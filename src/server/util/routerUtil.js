@@ -24,7 +24,7 @@ module.exports = {
 			router.use('/' + name, require(__dir + '/' + name)(app));
 		});
 
-		router.use('*', (req, res)=>res.status(404).send({}))
+		// router.use('*', (req, res)=>res.status(404).send({}))
 
 		return router;
 	}

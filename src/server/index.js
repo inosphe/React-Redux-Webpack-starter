@@ -16,6 +16,15 @@ Object.defineProperty(global, 'logger', {
 	, enumerable: true
 })
 
+Object.defineProperty(global, 'fallback', {
+	value: function(res){return err=>{
+		logger.error(err);
+		res.send(500)
+	}}
+	, configurable: false
+	, enumerable: true
+})
+
 var logs = ['process.env.NODE_ENV'];
 logger.info('Environments')
 for(var i in logs){

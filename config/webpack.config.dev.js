@@ -23,7 +23,7 @@ module.exports = {
 	],
 	resolve: {
 		extensions: ['.js', '.jsx'],
-		modules: ['node_modules', 'src/frontend', 'src/common']
+		modules: ['node_modules', 'src/frontend', 'src/common', 'src']
 	},
 	output: {
 		path: path.join(__base, opt.path),
