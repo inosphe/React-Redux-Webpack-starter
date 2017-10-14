@@ -34,6 +34,8 @@ function pageProcessor(urlProcessor){
 		  		if(obj){
 		  			childScripts.push(obj);
 	  				el.setAttribute('src', obj.filepath);
+	  				el.removeAttribute('srcset');
+	  				el.removeAttribute('sizes');
 	  			}
 			}
 			else if(el.nodeName == 'FRAME' || el.nodeName == 'IFRAME'){
@@ -84,21 +86,25 @@ function pageProcessor(urlProcessor){
 		scriptEl.src = "http://code.jquery.com/jquery.js";
 		window.document.head.appendChild(scriptEl);
 		
-		// scriptEl = window.document.createElement("script");
-		// scriptEl.src = "/dist/lib/jquery.textselectevent.js";
-		// window.document.head.appendChild(scriptEl);
+		scriptEl = window.document.createElement("script");
+		scriptEl.src = "/dist/lib/jquery.textselectevent.js";
+		window.document.head.appendChild(scriptEl);
 
-		// scriptEl = window.document.createElement("script");
-		// scriptEl.src = "/dist/lib/findAndReplaceDOMText.js";
-		// window.document.body.appendChild(scriptEl);
+		scriptEl = window.document.createElement("script");
+		scriptEl.src = "/dist/lib/findAndReplaceDOMText.js";
+		window.document.body.appendChild(scriptEl);
 
-		// scriptEl = window.document.createElement("script");
-		// scriptEl.innerHTML = "window.__CARDID__ = '${cardId}'";
-		// window.document.body.appendChild(scriptEl);
+		scriptEl = window.document.createElement("script");
+		scriptEl.innerHTML = "window.__CARDID__ = '${cardId}'";
+		window.document.body.appendChild(scriptEl);
 
-		// scriptEl = window.document.createElement("script");
-		// scriptEl.src = "/dist/lib/externalDocScript.js";
-		// window.document.body.appendChild(scriptEl);
+		scriptEl = window.document.createElement("script");
+		scriptEl.src = "/dist/frontend_embed.js";
+		window.document.body.appendChild(scriptEl);
+
+		scriptEl = window.document.createElement("script");
+		scriptEl.src = "/dist/lib/externalDocScript.js";
+		window.document.body.appendChild(scriptEl);
 
 		var html = window.document.documentElement.outerHTML;
 		return {html: html, childScripts: childScripts}

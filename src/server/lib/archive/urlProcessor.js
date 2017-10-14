@@ -103,11 +103,15 @@ function urlProcessor(dirpath, host){
 			filename = name + (id!==undefined?id:Math.floor(100000*Math.random())) + ext;
 		}
 
+		// console.log({
+		// 	url, filename, gurl: gurl(url), lurl: lurl(url)
+		// })
+
 		return {
 			url: gurl(url)
 			, type: nodeType
 			, filepath: lurl(url, filename)
-			, filename: filename
+			, filename: filename	//only used for override
 		}
 	}
 

@@ -36,7 +36,11 @@ function RequestWebpage(url){
         page.on('onResourceReceived', function(response) {
             // console.log('Receive ' + JSON.stringify(response, undefined, 4));
             // console.log('R : ', response.status);
-            console.log('redirectURL : ', response.redirectURL);
+            if(response.redirectURL){
+                console.log('Receive ' + JSON.stringify(response, undefined, 4));
+                console.log('R : ', response.status);
+                console.log('redirectURL : ', response.redirectURL);
+            }
         });
 
 

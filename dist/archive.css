@@ -1,0 +1,28 @@
+annotation{
+	background-color: lightcyan;
+	font-style: italic;
+}
+
+body{
+	overflow-x: visible !important;
+}
+
+.annotation-num{
+	 padding: 5px 10px;
+	 background: rgba(128, 128, 128, 0.5);
+	 border: 1px solid #ddd;
+	 color: #555;
+	 font-weight: bold;
+	 display: inline-block;
+	 position: absolute;
+}
+
+div:hover
+, p:hover{
+	/*background-color: rgba(128, 128, 135, 0.35);*/
+	z-index: 2;
+}
+
+.hovering{
+	background-color: rgba(128, 128, 135, 0.35);
+}
